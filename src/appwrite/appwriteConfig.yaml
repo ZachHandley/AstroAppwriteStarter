@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=./.appwrite/appwriteUtilsConfigSchema.json
+# Basic Appwrite configuration settings
+appwriteEndpoint: 'https://cloud.appwrite.io/v1' # Your Appwrite endpoint
+appwriteProject: 'YOUR_PROJECT_ID' # Your Appwrite project ID
+appwriteKey: 'YOUR_API_KEY' # Your Appwrite API key (needs storage and databases at minimum)
+enableDevDatabase: true # Enable development database alongside main. Default: true
+enableBackups: true # Enable backups. Default: true
+backupInterval: 3600 # Backup interval in seconds. Default: 3600 - DOES NOTHING RIGHT NOW
+backupRetention: 30 # Backup retention in days. Default: 30 - DOES NOTHING RIGHT NOW
+enableBackupCleanup: true # Enable backup cleanup. Default: true - DOES NOTHING RIGHT NOW
+enableMockData: false # Enable mock data generation. Default: false - DOES NOTHING RIGHT NOW
+enableWipeOtherDatabases: true # Enable wiping other databases. Default: true
+# Databases configuration
+# The first one is *always* Production
+# The second is *always* Staging
+# The third is *always* Development
+# They are found by name matching (without spaces and all lowercase), not $id
+# If no $id is included for anything defined, Appwrite will auto-generate one in its stead
+databases:
+  - $id: 'main' # Database ID
+    name: 'Main' # Database name
+  - $id: 'staging'
+    name: 'Staging'
+  - $id: 'dev'
+    name: 'Development'
+
+# Collections configuration
+collections:
+  - name: 'ExampleCollection' # Collection name
+    $permissions: # Permissions for the collection
+      - permission: read # Permission type
+        target: any # Permission target
+      - permission: create
+        target: users
+      - permission: update
+        target: users
+      - permission: delete
+        target: users
+    attributes: # Attributes of the collection
+      - key: 'exampleKey' # Attribute key
+        type: 'string' # Attribute type
+        size: 255 # Size of the attribute (for strings)
+        required: true # Whether the attribute is required
